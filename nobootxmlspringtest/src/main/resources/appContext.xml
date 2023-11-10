@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+    <context:annotation-config/>
+    <context:property-placeholder location="classpath:application.properties" />
+
+
+    <bean id="emailService" class="com.bnpp.pb.test.EmailServiceImpl">
+
+
+        <property name="javaMailSender" ref="javaMailSender"/>
+    </bean>
+
+    <bean name="javaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="${spring.mail.host}"/>
+       <property name="port" value="587"/>
+        <property name="password" value="${ism.mail.password}"/>
+        <property name="username" value="${ism.mail.username}"/>
+
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.smtp.starttls.enable">${spring.mail.properties.mail.smtp.starttls.enable}</prop>
+                <prop key="smtp.auth.enable">${spring.mail.properties.mail.smtp.auth}</prop>
+
+
+                <prop key="mail.debug">${mail.debug}</prop>
+            </props>
+        </property>
+
+    </bean>
+</beans>
